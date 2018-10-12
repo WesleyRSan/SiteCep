@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dados a partir do CEP</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2> Encontre seu CEP </h2><br/>
+                <table>
+                    <tr>
+                        <td>Estado: <input type='text' id='estado' maxlength='2'></td>
+                    </tr>
+                    <tr>
+                        <td>Cidade: <input type='text' id='cidade'></td>
+                    </tr>
+                        <!-- <tr><td>Bairro: <input type='text' id='bairro'></td></tr> -->
+                    <tr>
+                        <td>Logradouro: <input type='text' id='logradouro'></td>
+                    </tr>
+                    </tr>
+                </table>
+                <button id='procuraCep'> Encontrar </button>
+            </div>
+            <div class="col-md-4">
+                <h2> Consulte seu CEP </h2><br/>
+                <input type='text' id='numeroCep' maxlength="8">
+                <button id='consultaCep'> Consultar </button>
+            </div>
+            <div class="col-md-4">
+                <h2> CEP DETALHADO </h2><br/>
+                Veja seu CEP: <input type='text' id='numeroCep' maxlength="8"><br/>
+                <button id='consultaCep'> Calcular </button>
+            </div>
+            
+        </div>
+        <hr>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col" id='CepEncontrado'>CEP Encontrado</div>
+            <div class="col" id='endereco'>Tabela com resultados do CEP</div>            
+            <div class="col" id='map'> Valor do Frete </div>
+        </div>
+    </div>
+
+    <script src="..\ExerciciosWeb\ajax\js\jquery.js"></script>
+    <script src="cep.js"></script>
+</body>
+</html>
