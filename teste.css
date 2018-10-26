@@ -1,0 +1,9 @@
+body {
+    background-color: rgb(105, 173, 114) !important;
+    color: blue;
+    /* background-image: url(../img/correios.png); */
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+}
+
