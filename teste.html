@@ -11,46 +11,41 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-4" id='busca'>
-                <h2><a href='amor' class='testelink'> Encontre seu CEP </a></h2><br/>
+            <div class="col-md-4" id="busca">
+                <h2> Encontre seu CEP </h2><br/>
                 <table>
                     <tr>
-                        <td>Estado: <input type='text' id='estado' maxlength='2'></td>
+                        <td>Estado: <input type="text" id="estado" maxlength="2"></td>
                     </tr>
                     <tr>
-                        <td>Cidade: <input type='text' id='cidade'></td>
+                        <td>Cidade: <input type="text" id="cidade"></td>
                     </tr>
-                        <!-- <tr><td>Bairro: <input type='text' id='bairro'></td></tr> -->
                     <tr>
-                        <td>Logradouro: <input type='text' id='logradouro'></td>
+                        <td>Logradouro: <input type="text" id="logradouro"></td>
                     </tr>
                     </tr>
                 </table>
-                <button id='procuraCep'> Encontrar </button>
-                
+                <button id="procuraCep"> Encontrar </button>              
             </div>
             <div class="col-md-4">
                 <h2> Consulte seu CEP </h2><br/>
-                <input type='text' id='numeroCep' maxlength="8">
-                <button id='consultaCep'> Consultar </button>
+                <input type="text" id="numeroCep" maxlength="8">
+                <button id="consultaCep"> Consultar </button>
             </div>
-            <div class="col-md-4" id='endereco'>
+            <div class="col-md-4" id="endereco">
                 <h2> DETALHAMENTO DO CEP ESCOLHIDO </h2>
             </div>
             
         </div>
         <hr>
-    </div>
-    
-    
-    
+    </div>    
     <div class="container">
         <div class="row">
-            <div class="col" id='CepEncontrado'>CEP's Encontrados</div>
+            <div class="col" id="cepEncontrado">CEP's Encontrados</div>
         </div>
     </div>
 
     <script src="jquery.js"></script>
-    <script src='teste.js'></script>
+    <script src="teste.js"></script>
 </body>
 </html>
