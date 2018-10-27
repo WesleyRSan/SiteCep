@@ -9,20 +9,54 @@ function iniciar(cepInformado) {
         success(retornoDaApi){
             dados = retornoDaApi;
             console.log(dados);
-            endereco(dados);
-        },
+            if (dados.erro == true) {
+                alert("CEP Inexistente")
+            } else {
+            endereco(dados)
+        }
+    },
         error(e){
-            if (e.erro = true) {
-                alert("Formato de CEP invalido")
-            }
-            //  else if (e.erro = ) {                alert("CEP não localizado")                           }
-        },
+        }
     })
 }
 
+// $("#numeroCep").on('blur', function(evt) {
+//     if(this.value == '') {alert("Informe seu CEP"),
+//     evt.preventDefault()
+// }
+//     })
+
+/*{ <input value="digite aqui" type="text"
+onblur="if(this.value == '') {this.value = 'digite aqui';}" 
+onfocus="if(this.value == 'digite aqui') {this.value = '';}" /> }*/
+
+// function validaCep(evento) {
+//     if (evento == '') {
+//         alert('Informe o Cep'),
+//         console.log(evento)
+//     }
+//     onblur="validaCep(this.value)"
+    // else if !(e == ) {
+    //     alert('Informe apenas os numeros')
+    // }    else (this.value < 8) {
+    //     alert('O Cep deve conter 8 números')
+    // }
+
+
+
+// $("#numeroCep").on("onblur", alert("this.value"));
+
+
 $("#consultaCep").click(function(){
     var cepIndicado = $("#numeroCep").val();
-    iniciar(cepIndicado);
+    if(cepIndicado == '') {
+        alert("Informe seu CEP")
+    } else if(cepIndicado.length < 8) {
+        alert("Informe o CEP com 8 numeros")
+    } else if(isNaN(cepIndicado)) {
+        alert("Informe apenas os numeros")    
+    } else {
+    iniciar(cepIndicado)};
 });
 
 // o codigo abaixo deu errado, é um button gerado junto com as opções de cep's recebidas pelo endereço indicado e como é só teste pedi só um console e um alert (trabalhei pouco nele)
@@ -108,7 +142,6 @@ const opcoesDeCep = function() {
                 <tr>
                     <th scope="row">Cep encontrado:</th>
                     <td><a href="${item.cep}" class="detalhaCep">${item.cep}</a></td>
-                    <td>${item.logradouro}</td>
                     <td>${item.bairro}</td>
                     <td><button class="escolheCep"> Consultar </button></td>
                 </tr>                    
