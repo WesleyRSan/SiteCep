@@ -1,5 +1,6 @@
 var dados = '';
 
+// Recebe o CEP informado, Pega os dados na Api e envia para a função endereço() 
 function iniciar(cepInformado) {
     const url= `https://viacep.com.br/ws/${cepInformado}/json/`;
     console.log(url)
@@ -20,33 +21,7 @@ function iniciar(cepInformado) {
     })
 }
 
-// $("#numeroCep").on('blur', function(evt) {
-//     if(this.value == '') {alert("Informe seu CEP"),
-//     evt.preventDefault()
-// }
-//     })
-
-/*{ <input value="digite aqui" type="text"
-onblur="if(this.value == '') {this.value = 'digite aqui';}" 
-onfocus="if(this.value == 'digite aqui') {this.value = '';}" /> }*/
-
-// function validaCep(evento) {
-//     if (evento == '') {
-//         alert('Informe o Cep'),
-//         console.log(evento)
-//     }
-//     onblur="validaCep(this.value)"
-    // else if !(e == ) {
-    //     alert('Informe apenas os numeros')
-    // }    else (this.value < 8) {
-    //     alert('O Cep deve conter 8 números')
-    // }
-
-
-
-// $("#numeroCep").on("onblur", alert("this.value"));
-
-
+// Repassa o CEP informado pelo usuario para a função iniciar()
 $("#consultaCep").click(function(){
     var cepIndicado = $("#numeroCep").val();
     if(cepIndicado == '') {
@@ -59,14 +34,8 @@ $("#consultaCep").click(function(){
     iniciar(cepIndicado)};
 });
 
-// o codigo abaixo deu errado, é um button gerado junto com as opções de cep's recebidas pelo endereço indicado e como é só teste pedi só um console e um alert (trabalhei pouco nele)
-$(".escolheCep").on("click", function(event){
-    console.log("Esse é o cep clicado")
-    event.preventDefault();
-    alert("Was preventDefault() called: " + event.isDefaultPrevented());
-});
 
-// Clicar nos links dos cep's gerados e apresenta-lo detalhado na terceira coluna
+// Clicar nos links dos cep's gerados e informa-lo para a função iniciar()
 $("#cepEncontrado").on("click", ".detalhaCep", function(event){
     var cepClicado = $(this).attr("href");
     console.log("Esse é o cep clicado"+ cepClicado)
@@ -74,6 +43,15 @@ $("#cepEncontrado").on("click", ".detalhaCep", function(event){
     event.preventDefault();
 });
 
+// o codigo abaixo esta incompleto, é um button gerado junto com as opções de cep's recebidas pelo endereço indicado e falta conseguir pegar o valor do cep ja indicado no link 
+$("#cepEncontrado").on("click", ".escolheCep", function(event){
+    var cepClicadoButton = document();
+    console.log("Esse é o cep clicado: " + cepClicadoButton)
+    iniciar(cepClicadoButton);
+    event.preventDefault();
+});
+
+// Recebe os dados da função iniciar() e apresenta-os ao usuario
 const endereco = function(){
     $("#endereco").html(`
         <table class="table table-hover">
@@ -110,28 +88,43 @@ const endereco = function(){
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
+// Pega dos dados do endereço fornecido pelo usuario, bate na API e entrega os dados para a função opcoesDeCep()
 const acharCep = function(){
-
     const estado = $("#estado").val();
     const cidade = $("#cidade").val();
     const logradouro = $("#logradouro").val();
-
+    
     $.ajax({
         url: `https://viacep.com.br/ws/${estado}/${cidade}/${logradouro}/json/`,
         dataType: "json",
         success(retorno) {
             dados = retorno;
-            opcoesDeCep(dados)
+            if (retorno.length==0){
+                alert('Cep não encontrado!')
+            } else {
+                opcoesDeCep(dados)
+            }
         },
         error() {
 
-        },
+        }
     })
 }
 
 $("#procuraCep").click(function(){
-    acharCep();
+    
+    const estado = $("#estado").val();
+    const cidade = $("#cidade").val();
+    const logradouro = $("#logradouro").val();
+    
+    if(estado == '') {
+        alert('Preencha todos os campos da pesquisa')
+    } else if(cidade == '') {
+        alert('Preencha todos os campos da pesquisa')
+    } else if(logradouro == '') {
+        alert('Preencha todos os campos da pesquisa')
+    } else (
+    acharCep())
 });
 
 const opcoesDeCep = function() {
@@ -140,7 +133,7 @@ const opcoesDeCep = function() {
         html = html + `
             <table class="table table-hover">
                 <tr>
-                    <th scope="row">Cep encontrado:</th>
+                    <th scope="row">Cep:</th>
                     <td><a href="${item.cep}" class="detalhaCep">${item.cep}</a></td>
                     <td>${item.bairro}</td>
                     <td><button class="escolheCep"> Consultar </button></td>
@@ -150,4 +143,3 @@ const opcoesDeCep = function() {
         $("#cepEncontrado").html(html);
     })
 }
-
