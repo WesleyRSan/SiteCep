@@ -1,58 +1,53 @@
-var dados = '';
 
 // Recebe o CEP informado, Pega os dados na Api e envia para a função endereço() 
 function iniciar(cepInformado) {
-    const url= `https://viacep.com.br/ws/${cepInformado}/json/`;
+    const url = `https://viacep.com.br/ws/${cepInformado}/json/`;
     console.log(url)
     $.ajax({
         url,
         dataType: "json",
-        success(retornoDaApi){
-            dados = retornoDaApi;
-            console.log(dados);
-            if (dados.erro == true) {
-                alert("CEP Inexistente")
-            } else {
-            endereco(dados)
-        }
-    },
-        error(e){
+        success(retornoDaApi) {
+            if (retornoDaApi.erro) {
+                alert("CEP Inexistente");
+                return;
+            }
+            endereco(retornoDaApi);
         }
     })
 }
 
 // Repassa o CEP informado pelo usuario para a função iniciar()
-$("#consultaCep").click(function(){
-    var cepIndicado = $("#numeroCep").val();
-    if(cepIndicado == '') {
-        alert("Informe seu CEP")
-    } else if(cepIndicado.length < 8) {
-        alert("Informe o CEP com 8 numeros")
-    } else if(isNaN(cepIndicado)) {
-        alert("Informe apenas os numeros")    
+$("#consultaCep").click(function () {
+    const cepIndicado = $("#numeroCep").val();
+
+    if (!cepIndicado.length) {
+        alert("Informe seu CEP");
+    } else if (cepIndicado.length < 8) {
+        alert("Informe o CEP com 8 numeros");
+    } else if (isNaN(cepIndicado)) {
+        alert("Informe apenas os numeros");
     } else {
-    iniciar(cepIndicado)};
+        iniciar(cepIndicado)
+    };
 });
 
 
 // Clicar nos links dos cep's gerados e informa-lo para a função iniciar()
-$("#cepEncontrado").on("click", ".detalhaCep", function(event){
+$("#cepEncontrado").on("click", ".detalhaCep", function (event) {
     var cepClicado = $(this).attr("href");
-    console.log("Esse é o cep clicado"+ cepClicado)
+    console.log("Esse é o cep clicado" + cepClicado)
     iniciar(cepClicado);
     event.preventDefault();
 });
 
 // o codigo abaixo esta incompleto, é um button gerado junto com as opções de cep's recebidas pelo endereço indicado e falta conseguir pegar o valor do cep ja indicado no link 
-$("#cepEncontrado").on("click", ".escolheCep", function(event){
-    var cepClicadoButton = document();
-    console.log("Esse é o cep clicado: " + cepClicadoButton)
-    iniciar(cepClicadoButton);
-    event.preventDefault();
+$("#cepEncontrado").on("click", ".escolhe-cep", function (event) {
+    var cep = $(this).data('cep');
+    iniciar(cep);
 });
 
 // Recebe os dados da função iniciar() e apresenta-os ao usuario
-const endereco = function(){
+const endereco = function (dados) {
     $("#endereco").html(`
         <table class="table table-hover">
             <thead>
@@ -89,45 +84,39 @@ const endereco = function(){
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // Pega dos dados do endereço fornecido pelo usuario, bate na API e entrega os dados para a função opcoesDeCep()
-const acharCep = function(){
+const acharCep = function () {
     const estado = $("#estado").val();
     const cidade = $("#cidade").val();
     const logradouro = $("#logradouro").val();
-    
+
     $.ajax({
         url: `https://viacep.com.br/ws/${estado}/${cidade}/${logradouro}/json/`,
         dataType: "json",
         success(retorno) {
-            dados = retorno;
-            if (retorno.length==0){
-                alert('Cep não encontrado!')
-            } else {
-                opcoesDeCep(dados)
+            if (!retorno.length) {
+                alert('Cep não encontrado!');
+                return;
             }
-        },
-        error() {
-
+            opcoesDeCep(retorno)
         }
     })
 }
 
-$("#procuraCep").click(function(){
-    
+$("#procuraCep").click(function () {
     const estado = $("#estado").val();
     const cidade = $("#cidade").val();
     const logradouro = $("#logradouro").val();
-    
-    if(estado == '') {
-        alert('Preencha todos os campos da pesquisa')
-    } else if(cidade == '') {
-        alert('Preencha todos os campos da pesquisa')
-    } else if(logradouro == '') {
-        alert('Preencha todos os campos da pesquisa')
-    } else (
-    acharCep())
+
+    const isEmpty = estado.length && cidade.length && logradouro.length;
+
+    if (!isEmpty) {
+        alert('Preencha todos os campos da pesquisa');
+        return false;
+    }
+    acharCep();
 });
 
-const opcoesDeCep = function() {
+const opcoesDeCep = function (dados) {
     var html = '';
     dados.forEach((item, index) => {
         html = html + `
@@ -136,10 +125,10 @@ const opcoesDeCep = function() {
                     <th scope="row">Cep:</th>
                     <td><a href="${item.cep}" class="detalhaCep">${item.cep}</a></td>
                     <td>${item.bairro}</td>
-                    <td><button class="escolheCep"> Consultar </button></td>
+                    <td><button class="escolhe-cep" data-cep="${item.cep}"> Consultar </button></td>
                 </tr>                    
             </table>`
-        
+
         $("#cepEncontrado").html(html);
     })
 }
