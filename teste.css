@@ -7,3 +7,7 @@ body {
     height: 100vh;
 }
 
+.obrigatorio {
+    color: red;
+    font-weight: bold;
+}

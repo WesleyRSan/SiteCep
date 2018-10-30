@@ -41,7 +41,7 @@ $("#cepEncontrado").on("click", ".detalhaCep", function (event) {
 });
 
 // o codigo abaixo esta incompleto, é um button gerado junto com as opções de cep's recebidas pelo endereço indicado e falta conseguir pegar o valor do cep ja indicado no link 
-$("#cepEncontrado").on("click", ".escolhe-cep", function (event) {
+$("#cepEncontrado").on("click", function (event) {
     var cep = $(this).data('cep');
     iniciar(cep);
 });
@@ -50,11 +50,6 @@ $("#cepEncontrado").on("click", ".escolhe-cep", function (event) {
 const endereco = function (dados) {
     $("#endereco").html(`
         <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col" colspan="2"><h2>Endereço Relacionado</h2></th>
-                </tr>
-            </thead>
             <tbody>
                 <tr>
                     <th scope="row">Cep indicado:</th>
@@ -102,7 +97,7 @@ const acharCep = function () {
     })
 }
 
-$("#procuraCep").click(function () {
+$("#procuraCep").click(function (e) {
     const estado = $("#estado").val();
     const cidade = $("#cidade").val();
     const logradouro = $("#logradouro").val();
@@ -114,20 +109,20 @@ $("#procuraCep").click(function () {
         return false;
     }
     acharCep();
+
+    e.preventDefault();
 });
 
 const opcoesDeCep = function (dados) {
     var html = '';
     dados.forEach((item, index) => {
         html = html + `
-            <table class="table table-hover">
-                <tr>
-                    <th scope="row">Cep:</th>
-                    <td><a href="${item.cep}" class="detalhaCep">${item.cep}</a></td>
-                    <td>${item.bairro}</td>
-                    <td><button class="escolhe-cep" data-cep="${item.cep}"> Consultar </button></td>
-                </tr>                    
-            </table>`
+            <ul class="list-unstyled">
+                <li class="list-group-item list-group-item-success"> Cep: 
+                    <a href="${item.cep}" class="detalhaCep badge badge-primary">${item.cep}</a>
+                    ${item.bairro}
+                </li>
+            </ul>`
 
         $("#cepEncontrado").html(html);
     })
