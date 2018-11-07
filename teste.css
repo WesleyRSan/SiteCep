@@ -10,3 +10,15 @@ body {
 .mapa {
     margin-top: 30px;
 }
+
+.imag {
+    text-align: center;
+    width: 200px;
+    height: auto;
+}
+
+.imag-maps {
+    text-align: center;
+    width: 80px;
+    height: auto;
+}
