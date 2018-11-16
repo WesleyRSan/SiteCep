@@ -1,0 +1,24 @@
+body {
+    background-color: rgb(173, 144, 14) !important;
+    color: yellow;
+    background-image: url(./img/correios.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    /* height: 100vh; */
+}
+
+.mapa {
+    margin-top: 30px;
+}
+
+.imag {
+    text-align: center;
+    width: 200px;
+    height: auto;
+}
+
+.imag-maps {
+    text-align: center;
+    width: 80px;
+    height: auto;
+}

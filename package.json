@@ -1,0 +1,46 @@
+{
+  "name": "sitecep",
+  "version": "1.0.0",
+  "description": ":mag: Esse App permite a localização do CEP a partir do endereço informado, ou a localização do endereço a partir do CEP. Em breve estará disponível também a visualização do local do CEP a partir do Google Maps.",
+  "main": "teste.js",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build": "cross-env NODE_ENV=production webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WesleyRSan/SiteCep.git"
+  },
+  "keywords": [
+    "CEPS"
+  ],
+  "author": "WESLEY",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "5.1.5",
+    "optimize-css-assets-webpack-plugin": "4.0.1",
+    "node-sass": "4.9.0",
+    "mini-css-extract-plugin": "0.4.0",
+    "postcss-loader": "2.1.5",
+    "uglifyjs-webpack-plugin": "1.2.5",
+    "webpack-dev-server": "3.1.4",
+    "file-loader": "1.1.11",
+    "webpack": "^4.8.1",
+    "webpack-cli": "^2.1.3",
+    "webpack-serve": "^2.0.2",
+    "css-loader": "0.28.11",
+    "style-loader": "0.21.0",
+    "copy-webpack-plugin": "4.5.1"
+  },
+  "bugs": {
+    "url": "https://github.com/WesleyRSan/SiteCep/issues"
+  },
+  "homepage": "https://github.com/WesleyRSan/SiteCep#readme",
+  "dependencies": {
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "jquery": "^3.3.1",
+    "bootstrap": "4.1.1",
+    "popper.js": "1.14.3"
+  }
+}
